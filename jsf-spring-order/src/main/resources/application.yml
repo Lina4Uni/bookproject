@@ -1,0 +1,32 @@
+### JSF CONFIGS ###
+server:
+  context_parameters:
+    com:
+      sun:
+        faces:
+          forceLoadConfiguration: true
+
+
+### H2 ###"
+spring:
+  datasource:
+    url: jdbc:h2:mem:productdb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    spring:
+      jpa.database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+  h2:
+    console.enabled: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
