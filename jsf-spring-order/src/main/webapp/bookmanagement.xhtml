@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<ui:composition template="/templates/page-template.xhtml">
+    <ui:param name="pageTitle" value="Buchverwaltung"/>
+    <ui:define name="panel-main">
+        <section>
+            <h1>Buchverwaltung</h1>
+
+            <p:growl id="growl" showDetail="true" life="3000" />
+            <h:messages styleClass="validation-messages"/>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="name" styleClass="required" value="Name:" />
+                    <h:inputText id="name" value="#{bookManagement.name}" required="true" requiredMessage="Bitte geben sie einen Buchtitel an." />
+
+                    <h:outputLabel for="description" value="Beschreibung:" />
+                    <h:inputTextarea id="description" value="#{bookManagement.description}"/>
+
+                    <h:outputLabel for="price" styleClass="required" value="Preis (Euro):" />
+                    <h:inputText id="price" value="#{bookManagement.price}" required="true"
+                                 requiredMessage="Bitte geben Sie einen Preis ein."
+                                 validatorMessage="Bitte geben Sie einen Preis ein, der nur Zahlen besteht.">
+                        <f:validateDoubleRange minimum="0.0" />
+                    </h:inputText>
+
+                    <h:outputLabel for="imageName" value="Bildname:" />
+                    <h:inputText id="imageName" value="#{bookManagement.imageName}"/>
+
+                    <h:outputLabel for="author" styleClass="required" value="Autor:" />
+                    <h:inputText id="author" value="#{bookManagement.author}" required="true"
+                                 requiredMessage="Bitte geben sie einen Autor an." />
+
+                    <h:outputLabel for="isbn" styleClass="required" value="ISBN:" />
+                    <h:inputText id="isbn" value="#{bookManagement.isbn}" required="true" requiredMessage="Bitte geben sie eine ISBN-Nummer an." />
+
+                    <h:outputLabel for="publisher" value="Verlag:" />
+                    <h:inputText id="publisher" value="#{bookManagement.publisher}"/>
+
+                    <h:outputLabel for="genre" value="Genre:" />
+                    <h:inputText id="genre" value="#{bookManagement.genre}" />
+                </h:panelGrid>
+                <h:commandButton value="Buch hinzufügen" action="#{bookManagement.addBook}" />
+                <h:messages globalOnly="true" />
+            </h:form>
+        </section>
+    </ui:define>
+</ui:composition>
+</html>

@@ -31,13 +31,17 @@ a:hover, a:active {
 body > header {
     padding: 1em;
     clear: both;
-    background-color: #f15b2a;
+    background-color: lightblue;
     color: white;
     text-align: center;
 }
 
 body > header > h1 {
     margin: 0;
+}
+
+.required:after {
+    content: "*";
 }
 
 body > section {
@@ -61,18 +65,29 @@ body > footer > p {
     margin: 0;
 }
 
-.product-summary {
+.book-summary {
     margin: 0.5em 0;
     padding: 0.5em 0;
     clear: both;
 }
 
-.product-summary > img {
+.book-summary > img {
     float: left;
     padding-right: 1em;
 }
 
-.product-details > img {
+.book-details > img {
     float: left;
     padding-right: 1em;
+}
+.profile-image
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 0;
+    display: block;
+}
+.test1 {
+    background: red;
 }

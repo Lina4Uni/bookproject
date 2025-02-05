@@ -2,37 +2,54 @@ package de.northcodes.course.jsfspring.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name = AbstractEntity.SHOP_PREFIX + "product")
-public final class Product extends AbstractEntity implements Serializable{
+@Table(name = AbstractEntity.SHOP_PREFIX + "book")
+public final class Book extends AbstractEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Column(name = "name", nullable = false)
     private String name;
-    
+
     @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "price", nullable = false)
     private BigDecimal price;
-    
+
     @Column(name = "image_name", nullable = false)
     private String imageName;
 
-    protected Product() {}
-    
-    public Product(String name, String description, BigDecimal price, String imageName) {
+    @Column(name = "author", nullable = false)
+    private String author;
+
+    @Column(name = "isbn", nullable = false, unique = true)
+    private String isbn;
+
+    @Column(name = "publisher", nullable = false)
+    private String publisher;
+
+    @Column(name = "genre")
+    private String genre;
+
+    private Book() {}
+
+    public Book(String name, String description, BigDecimal price, String imageName, String author,
+                String isbn, String publisher, String genre) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.imageName = imageName;
+        this.author = author;
+        this.isbn = isbn;
+        this.publisher = publisher;
+        this.genre = genre;
     }
 
     public String getName() {
@@ -59,9 +76,27 @@ public final class Product extends AbstractEntity implements Serializable{
     public String getImageName() {
         return imageName;
     }
-    
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
     @Override
     public String toString() {
-    	return "Product ID: " + this.getId() + ", name: " + this.getName() +", description: " + this.getDescription();  
+        return "Product ID: " + this.getId() + ", name: " + this.getName() + ", author: " + this.getAuthor() +
+                ", description: " + this.getDescription() + ", ISBN: " + this.getIsbn() + ", publisher: " +
+                this.getPublisher() + ", genre: " + this.getGenre() + ", price: " + this.getPrice();
     }
 }

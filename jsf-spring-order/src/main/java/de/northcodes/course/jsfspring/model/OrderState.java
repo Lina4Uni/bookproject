@@ -20,7 +20,7 @@ public enum OrderState {
 
 	private final String description;
 	
-	private OrderState(String description) {
+	OrderState(String description) {
 		this.description = description;
 	}
 	

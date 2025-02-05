@@ -10,7 +10,7 @@ server:
 ### H2 ###"
 spring:
   datasource:
-    url: jdbc:h2:mem:productdb
+    url: jdbc:h2:mem:bookdb
     username: sa
     password: password
     driverClassName: org.h2.Driver

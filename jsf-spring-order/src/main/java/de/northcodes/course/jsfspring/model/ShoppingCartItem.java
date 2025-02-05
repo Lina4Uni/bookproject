@@ -14,7 +14,7 @@ public class ShoppingCartItem extends AbstractEntity{
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "fk_product",referencedColumnName="id",nullable=false,unique=false)
-	private Product product;
+	private Book product;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn (name="fk_order",referencedColumnName="id",nullable=false,unique=false)
@@ -23,7 +23,7 @@ public class ShoppingCartItem extends AbstractEntity{
 	private int quantity;
 	private BigDecimal amount;
 
-	public ShoppingCartItem(Product product) {
+	public ShoppingCartItem(Book product) {
 		this.product = product;
 		this.quantity = 1;
 		this.amount = product.getPrice();
@@ -32,14 +32,14 @@ public class ShoppingCartItem extends AbstractEntity{
 
 	
 	
-	public Product getProduct() {
+	public Book getProduct() {
 		return product;
 	}
 
 
 
 
-	public void setProduct(Product product) {
+	public void setProduct(Book product) {
 		this.product = product;
 	}
 

@@ -1,10 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+
 <ui:composition>
-    <header>
-        <h1>Welcome to the JSF Music Shop</h1>
+    <header style="display: flex; justify-content: space-between; align-items: center;">
+        <!-- Menü-Button -->
+        <p:commandButton icon="pi pi-bars" styleClass="menu-button test1"
+                         onclick="PF('menu').toggle()" type="button" />
+
+        <!-- Menü -->
+        <p:overlayPanel id="menu" widgetVar="menu" for="menu" dismissable="true">
+            <h:form>
+                <p:menu>
+                    <p:menuitem value="Startseite" url="/index.xhtml" />
+                    <p:menuitem value="Suche" url="/search.xhtml" rendered="#{userManager.signedIn}"  />
+                    <p:menuitem value="Buchverleih" url="/booksystem.xhtml" rendered="#{userManager.signedIn}"  />
+                    <p:menuitem value="Buchverwaltung" url="/bookmanagement.xhtml" rendered="#{userManager.currentUser.role == 'ADMIN'}" />
+                    <p:menuitem value="Einstellungen" url="/settings.xhtml" rendered="#{userManager.signedIn}"   />
+                </p:menu>
+            </h:form>
+        </p:overlayPanel>
+
+        <h1>#{pageTitle}</h1>
+
+        <h:panelGroup rendered="#{userManager.currentUser != null}">
+            <p>Angemeldet als: #{userManager.currentUser.firstName} #{userManager.currentUser.lastName}</p>
+        </h:panelGroup>
+
+        <p:graphicImage id="profileMenuTrigger"
+                        name="#{userManager.profileImagePath}"
+                        styleClass="profile-image"
+                        onclick="PF('profileMenu').toggle()" />
+
+        <!-- Profil-Menü -->
+        <p:overlayPanel id="profileMenu" widgetVar="profileMenu" for="profileMenuTrigger" dismissable="true">
+            <h:form>
+                <p:menu>
+                    <p:menuitem value="Anmelden" url="sign-in.xhtml"/>
+                    <p:menuitem value="Registrieren" url="user-details.xhtml" />
+                    <p:menuitem value="Abmelden" action="#{userManager.signOut}" />
+                </p:menu>
+            </h:form>
+        </p:overlayPanel>
+
     </header>
 </ui:composition>
+
 </html>

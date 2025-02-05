@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="templates/page-template.xhtml">
+    <f:metadata>
+        <f:viewParam name="bookId" value="#{bookDetails.bookId}"/>
+        <f:viewAction action="#{bookDetails.onload}"/>
+    </f:metadata>
+    <ui:param name="pageTitle" value="Details über das Buch"/>
+    <ui:define name="panel-main">
+        <section class="book-details">
+            <h:graphicImage library="musicshop" name="images/test-400x400.jpg"
+                            alt="#{bookDetails.book.name}"/>
+            <h:form>
+                <h1>#{bookDetails.book.name}</h1>
+                <p>#{bookDetails.book.description}</p>
+                <p>Price: $ #{bookDetails.book.price} - <h:commandLink
+                        action="#{shoppingCart.addBook(bookDetails.book)}">Add to cart</h:commandLink></p>
+                <p><h:outputLink value="index.xhtml">zurück</h:outputLink></p>
+            </h:form>
+        </section>
+    </ui:define>
+</ui:composition>
+</html>

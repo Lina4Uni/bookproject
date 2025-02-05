@@ -8,7 +8,7 @@ import de.northcodes.course.jsfspring.model.User;
 
 public interface OrderService {
 
-	public void orderNow(User orderer, List<ShoppingCartItem> items);
+	void orderNow(User orderer, List<ShoppingCartItem> items);
 
-	public List<Order> getAllOrdersByUser(User orderer);
+	List<Order> getAllOrdersByUser(User orderer);
 }

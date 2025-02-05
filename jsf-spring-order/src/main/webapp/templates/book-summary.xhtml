@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition>
+    <section class="book-summary">
+        <h:graphicImage library="musicshop" name="images/#{book.imageName}-120x120.jpg" alt="#{book.name}"/>
+        <h2>#{book.name}</h2>
+        <ui:insert name="book-description">
+            <p>book description.</p>
+        </ui:insert>
+        <p>Price: $ #{book.price} - <h:commandLink
+                        action="#{shoppingCart.addBook(book)}">Add to cart</h:commandLink></p>
+        <p>
+            <h:outputLink value="book-details.xhtml">
+                <f:param name="bookId" value="#{book.id}"/>
+                Detail
+            </h:outputLink>
+        </p>
+    </section>
+</ui:composition>
+</html>

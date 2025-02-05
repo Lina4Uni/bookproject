@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.northcodes.course.jsfspring.model.Order;
-import de.northcodes.course.jsfspring.model.Product;
+import de.northcodes.course.jsfspring.model.Book;
 import de.northcodes.course.jsfspring.model.ShoppingCartItem;
 import de.northcodes.course.jsfspring.service.OrderService;
 
@@ -48,7 +48,7 @@ public class ShoppingCart implements Serializable {
         return totalAmount;
     }
 
-    public void addProduct(Product product) {
+    public void addProduct(Book product) {
     	System.out.println("ShoppingCart.addProduct called");
         // Find the item for this product, increment quantity and amount if found
         for (ShoppingCartItem item : items) {
@@ -64,7 +64,7 @@ public class ShoppingCart implements Serializable {
         incrementTotalQuantityAndAmount(product.getPrice());
     }
 
-    public void removeProduct(Product product) {
+    public void removeProduct(Book product) {
         Iterator<ShoppingCartItem> it = items.iterator();
         while (it.hasNext()) {
             ShoppingCartItem item = it.next();

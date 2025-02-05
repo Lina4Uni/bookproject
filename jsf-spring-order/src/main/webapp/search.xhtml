@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/templates/page-template.xhtml">
+    <ui:param name="pageTitle" value="Suche"/>
+    <ui:define name="panel-main">
+        <section>
+            <h1>Suche</h1>
+            <ui:debug hotkey="e"/>
+            <h:form>
+                <p:inputText id="searchQuery" value="#{searchBooks.searchQuery}" placeholder="Starte Suche...">
+                    <p:ajax event="keyup" update="bookList" listener="#{searchBooks.search}"/>
+                </p:inputText>
+                <p:commandButton value="Suche" action="#{searchBooks.search}" update="bookList"/>
+                <p:dataTable id="bookList" value="#{searchBooks.books}" var="book">
+                    <p:column>
+                        <f:facet name="header">Buchname</f:facet>
+                        #{book.name}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">Beschreibung</f:facet>
+                        #{book.description}
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </section>
+    </ui:define>
+</ui:composition>
+</html>

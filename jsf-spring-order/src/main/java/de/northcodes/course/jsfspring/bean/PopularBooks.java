@@ -6,20 +6,20 @@ import javax.faces.bean.RequestScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import de.northcodes.course.jsfspring.model.Product;
-import de.northcodes.course.jsfspring.service.ProductService;
+import de.northcodes.course.jsfspring.model.Book;
+import de.northcodes.course.jsfspring.service.BookService;
 
 import java.util.List;
 
 @RequestScoped
 @Component
 @ManagedBean
-public class PopularProducts {
+public class PopularBooks {
 
 	@Autowired
-	private ProductService productService;
+	private BookService bookService;
 
-	public List<Product> getProducts() {
-		return productService.getPopularProducts();
+	public List<Book> getBooks() {
+		return bookService.getPopularBooks();
 	}
 }

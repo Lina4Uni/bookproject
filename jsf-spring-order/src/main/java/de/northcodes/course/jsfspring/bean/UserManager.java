@@ -4,6 +4,7 @@ import javax.annotation.ManagedBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -33,6 +34,14 @@ public class UserManager implements Serializable {
         return currentUser;
     }
 
+    public String getProfileImagePath() {
+        if (currentUser != null && currentUser.getProfileImage() != null) {
+            return "musicshop/images/skins/" + currentUser.getProfileImage();
+        } else {
+            return "musicshop/images/Default.png";
+        }
+    }
+
     public String signIn(String username, String password) {
         User user = userService.getUser(username);
         if (user == null || !password.equals(user.getPassword())) {
@@ -46,11 +55,16 @@ public class UserManager implements Serializable {
     }
 
     public String signOut() {
-        // End the session, removing any session state, including the current user and content of the shopping cart
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-
-        // Redirect is necessary to let the browser make a new GET request
-        return "index?faces-redirect=true";
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        if (session != null) {
+            session.invalidate();
+            System.out.println("Session invalidated successfully.");
+        } else {
+            System.out.println("No session found to invalidate.");
+        }
+        currentUser = null;
+        return "sign-in?faces-redirect=true";
     }
 
     public String save(User user) {
