@@ -12,14 +12,26 @@
     <ui:param name="pageTitle" value="Details über das Buch"/>
     <ui:define name="panel-main">
         <section class="book-details">
-            <h:graphicImage library="musicshop" name="images/test-400x400.jpg"
+            <h:graphicImage styleClass="cover-image" library="musicshop" name="images/covers/#{bookDetails.book.imageName}.png"
                             alt="#{bookDetails.book.name}"/>
             <h:form>
                 <h1>#{bookDetails.book.name}</h1>
                 <p>#{bookDetails.book.description}</p>
-                <p>Price: $ #{bookDetails.book.price} - <h:commandLink
-                        action="#{shoppingCart.addBook(bookDetails.book)}">Add to cart</h:commandLink></p>
-                <p><h:outputLink value="index.xhtml">zurück</h:outputLink></p>
+
+                <h:panelGroup rendered="#{bookDetails.book.recommended}">
+                    <p style="font-weight: bold; color: mintcream;">von der Redaktion empfohlen</p>
+                </h:panelGroup>
+
+                <p>ISBN: #{bookDetails.book.isbn}</p>
+                <p>Autor: #{bookDetails.book.author}</p>
+                <p>Genre: #{bookDetails.book.genre}</p>
+                <p>Verlag: #{bookDetails.book.publisher}</p>
+                <p>Verfügbarkeit: #{bookDetails.book.status.getDescription()}</p>
+
+            <h:panelGroup rendered="#{bookDetails.book.status == 'AVAILABLE' and userManager.signedIn}">
+                <p><h:commandButton value="Buch ausleihen" action="#{bookDetails.borrowBook}"/></p>
+            </h:panelGroup>
+                <p><h:outputLink value="index.xhtml">zur Startseite</h:outputLink></p>
             </h:form>
         </section>
     </ui:define>

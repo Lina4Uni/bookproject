@@ -1,12 +1,8 @@
 package de.northcodes.course.jsfspring.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = AbstractEntity.SHOP_PREFIX + "book")
@@ -19,9 +15,6 @@ public final class Book extends AbstractEntity implements Serializable {
 
     @Column(name = "description", nullable = false)
     private String description;
-
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
 
     @Column(name = "image_name", nullable = false)
     private String imageName;
@@ -38,18 +31,26 @@ public final class Book extends AbstractEntity implements Serializable {
     @Column(name = "genre")
     private String genre;
 
+    @Column(name = "recommended", nullable = false)
+    private boolean recommended;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private State status;
+
     private Book() {}
 
-    public Book(String name, String description, BigDecimal price, String imageName, String author,
-                String isbn, String publisher, String genre) {
+    public Book(String name, String description, String imageName, String author,
+                String isbn, String publisher, String genre, Boolean recommended, State status) {
         this.name = name;
         this.description = description;
-        this.price = price;
         this.imageName = imageName;
         this.author = author;
         this.isbn = isbn;
         this.publisher = publisher;
         this.genre = genre;
+        this.recommended = recommended;
+        this.status = status;
     }
 
     public String getName() {
@@ -67,10 +68,6 @@ public final class Book extends AbstractEntity implements Serializable {
         } else {
             return description.substring(0, Math.min(description.length(), 100)) + "...";
         }
-    }
-
-    public BigDecimal getPrice() {
-        return price;
     }
 
     public String getImageName() {
@@ -97,6 +94,22 @@ public final class Book extends AbstractEntity implements Serializable {
     public String toString() {
         return "Product ID: " + this.getId() + ", name: " + this.getName() + ", author: " + this.getAuthor() +
                 ", description: " + this.getDescription() + ", ISBN: " + this.getIsbn() + ", publisher: " +
-                this.getPublisher() + ", genre: " + this.getGenre() + ", price: " + this.getPrice();
+                this.getPublisher() + ", genre: " + this.getGenre();
+    }
+
+    public State getStatus() {
+        return status;
+    }
+
+    public void setStatus(State status) {
+        this.status = status;
+    }
+
+    public boolean isRecommended() {
+        return recommended;
+    }
+
+    public void setRecommended(boolean recommended) {
+        this.recommended = recommended;
     }
 }

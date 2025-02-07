@@ -59,9 +59,6 @@ public class UserManager implements Serializable {
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         if (session != null) {
             session.invalidate();
-            System.out.println("Session invalidated successfully.");
-        } else {
-            System.out.println("No session found to invalidate.");
         }
         currentUser = null;
         return "sign-in?faces-redirect=true";

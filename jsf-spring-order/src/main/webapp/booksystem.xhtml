@@ -2,13 +2,39 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 <ui:composition template="/templates/page-template.xhtml">
-    <ui:param name="pageTitle" value="Beliebte Bücher"/>
+    <ui:param name="pageTitle" value="Verleihübersicht"/>
     <ui:define name="panel-main">
         <section>
-            <h1>Verleih</h1>
+            <h1>Verleihübersicht</h1>
 
+            <p:dataTable id="bookRent" styleClass="bookList-search" value="#{bookRentBean.bookRents}" var="bookRent">
+                <p:column>
+                    <f:facet name="header">Name des Users</f:facet>
+                    #{bookRent.user.lastName}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Buchtitel</f:facet>
+                    #{bookRent.book.name}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Wann Anfrage</f:facet>
+                    #{bookRent.rentDate}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Status</f:facet>
+                    #{bookRent.book.status.getDescription()}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Aktionen</f:facet>
+                    <p:commandButton icon="pi pi-check" title="ausleihen" actionListener="#{bookRentBean.submitRent(bookRent)}"/>
+                    <p:commandButton icon="pi pi-save" title="reservieren" actionListener="#{bookRentBean.reserveAction(bookRent)}"/>
+                    <p:commandButton icon="pi pi-times" title="ablehnen" actionListener="#{bookRentBean.deleteAction(bookRent)}"/>
+                </p:column>
+            </p:dataTable>
         </section>
     </ui:define>
 </ui:composition>

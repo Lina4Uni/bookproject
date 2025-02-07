@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="/templates/page-template.xhtml">
+    <ui:param name="pageTitle" value="Verleihübersicht"/>
+    <ui:define name="panel-main">
+        <section>
+            <h1>Übersicht Verleihsystem</h1>
+            <p:dataTable id="bookRent" styleClass="bookList-search" value="#{bookRentBean.currentUserBookRents}" var="bookRent">
+                <p:column>
+                    <f:facet name="header">Buchname</f:facet>
+                    #{bookRent.book.name}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Status</f:facet>
+                    #{bookRent.book.status.getDescription()}
+                </p:column>
+                <p:column>
+                    <f:facet name="header">Datum</f:facet>
+                    #{bookRent.rentDate}
+                </p:column>
+            </p:dataTable>
+        </section>
+    </ui:define>
+</ui:composition>
+</html>

@@ -10,7 +10,7 @@
             <h1>Willkommen, Gast!</h1>
             <p>Um alle Funktionen nutzen zu können, solltest du angemeldet sein.
                 <br></br><h:outputLink value="sign-in.xhtml">Anmeldung</h:outputLink>
-                <br></br><h:outputLink value="user-details.xhtml">Einloggen</h:outputLink></p>
+                <br></br><h:outputLink value="user-details.xhtml">Registrieren</h:outputLink></p>
         </ui:fragment>
 
         <ui:fragment rendered="#{userManager.signedIn}">
@@ -20,18 +20,6 @@
                     oder <h:commandLink action="#{userManager.signOut}">Abmelden</h:commandLink>.</p>
             </h:form>
         </ui:fragment>
-       
-<!--         <ui:fragment rendered="#{shoppingCart.totalQuantity == 0}">-->
-<!--            <p>Your <h:outputLink value="shopping-cart.xhtml">shopping cart</h:outputLink> is empty.</p>-->
-<!--        </ui:fragment>-->
-<!--        <ui:fragment rendered="#{shoppingCart.totalQuantity == 1}">-->
-<!--            <p>Your <h:outputLink value="shopping-cart.xhtml">shopping cart</h:outputLink> contains one item.</p>-->
-<!--        </ui:fragment>-->
-<!--        <ui:fragment rendered="#{shoppingCart.totalQuantity > 1}">-->
-<!--            <p>Your <h:outputLink value="shopping-cart.xhtml">shopping cart</h:outputLink>-->
-<!--                contains #{shoppingCart.totalQuantity} items.-->
-<!--            </p>-->
-<!--        </ui:fragment>-->
     </section>
 </ui:composition>
 </html>

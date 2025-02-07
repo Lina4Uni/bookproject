@@ -4,11 +4,15 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition template="/templates/page-template.xhtml">
-    <ui:param name="pageTitle" value="Beliebte Bücher"/>
+    <ui:param name="pageTitle" value="Einstellungen"/>
+    <ui:define name="panel-top">
+        <section>
+            <h1>Nutzerinformationen</h1>
+        </section>
+    </ui:define>
     <ui:define name="panel-main">
         <section>
-            <h1>Einstellungen</h1>
-
+            <ui:include src="/templates/user-details-form.xhtml"/>
         </section>
     </ui:define>
 </ui:composition>

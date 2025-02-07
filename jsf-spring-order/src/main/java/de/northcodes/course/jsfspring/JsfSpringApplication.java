@@ -1,14 +1,12 @@
 package de.northcodes.course.jsfspring;
 
-import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Date;
-
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
-
-import de.northcodes.course.jsfspring.model.User;
-import de.northcodes.course.jsfspring.model.UserRole;
+import de.northcodes.course.jsfspring.model.*;
+import de.northcodes.course.jsfspring.persistence.BookRentRepository;
 import de.northcodes.course.jsfspring.persistence.BookRepository;
 import de.northcodes.course.jsfspring.persistence.UserRepository;
 import org.slf4j.Logger;
@@ -21,8 +19,6 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-
-import de.northcodes.course.jsfspring.model.Book;
 
 @SpringBootApplication
 public class JsfSpringApplication extends SpringBootServletInitializer {
@@ -37,10 +33,8 @@ public class JsfSpringApplication extends SpringBootServletInitializer {
     ServletRegistrationBean<FacesServlet> jsfServletRegistration (ServletContext servletContext) {
     	log.info("jsfServletRegistration started...");
     	
-        //spring boot only works if this is set
         servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 
-        //FacesServlet registration
         ServletRegistrationBean<FacesServlet> srb = new ServletRegistrationBean<FacesServlet>();
         srb.setServlet(new FacesServlet());
         srb.setUrlMappings(Collections.singletonList("*.xhtml"));
@@ -49,72 +43,134 @@ public class JsfSpringApplication extends SpringBootServletInitializer {
     }
     
     
-    //Only need for development initialization purposes
     @Bean
-    public CommandLineRunner demo(BookRepository repository, UserRepository userRepository) {
+    public CommandLineRunner demo(BookRepository repository, UserRepository userRepository, BookRentRepository rentRepository) {
       return (args) -> {
-        // save a few Books
-
           repository.save(new Book(
-                  "The Catcher in the Rye",
-                  "A novel by J.D. Salinger, partially published in serial form in 1945-1946 and as a novel in 1951.",
-                  new BigDecimal("10.99"),
-                  "test",
-                  "J.D. Salinger",
-                  "978-0-316-76948-0", // ISBN
-                  "Little, Brown and Company", // Publisher
-                  "Fiction" // Genre
+                  "Der kleine Abenteuerdrache",
+                  "Ein mutiger kleiner Drache begibt sich auf eine Reise, um das Geheimnis des verschwundenen Zauberbuchs zu lüften.",
+                  "Der kleine Abenteuerdrache",
+                  "Miriam Schneider",
+                  "978-3-1234-5678-1", // ISBN
+                  "Kinderbuchverlag Fantasia", // Publisher
+                  "Fantasy, Abenteuer", // Genre
+                  true,
+                  State.AVAILABLE
           ));
 
           repository.save(new Book(
-                  "To Kill a Mockingbird",
-                  "A novel by Harper Lee published in 1960. Instantly successful, widely read in high schools and middle schools in the United States.",
-                  new BigDecimal("7.99"),
-                  "test",
-                  "Harper Lee",
-                  "978-0-06-112008-4", // ISBN
-                  "J.B. Lippincott & Co.", // Publisher
-                  "Fiction" // Genre
+                  "Lillis verrückte Zeitmaschine",
+                  "Lilli findet eine alte Uhr, die sie in die Vergangenheit reisen lässt – doch wird sie wieder nach Hause finden?",
+                  "Lillis verrueckte Zeitmaschine",
+                  "Thomas Becker",
+                  "978-3-2345-6789-2", // ISBN
+                  "Zeitreise Verlag", // Publisher
+                  "Abenteuer, Zeitreise", // Genre
+                  false,
+                  State.AVAILABLE
           ));
 
           repository.save(new Book(
-                  "1984",
-                  "A dystopian social science fiction novel and cautionary tale, written by the English writer George Orwell.",
-                  new BigDecimal("8.99"),
-                  "test",
-                  "George Orwell",
-                  "978-0-452-28423-4", // ISBN
-                  "Secker & Warburg", // Publisher
-                  "Dystopian, Science Fiction" // Genre
+                  "Max und die Zauberschule",
+                  "Max entdeckt eine geheime Schule für junge Magier und muss eine wichtige Prüfung bestehen.",
+                  "Max und die Zauberschule",
+                  "Julia Meier",
+                  "978-3-3456-7890-3", // ISBN
+                  "Magische Bücherwelt", // Publisher
+                  "Fantasy, Magie", // Genre
+                  true,
+                  State.AVAILABLE
           ));
 
           repository.save(new Book(
-                  "Pride and Prejudice",
-                  "A romantic novel of manners written by Jane Austen in 1813.",
-                  new BigDecimal("6.99"),
-                  "test",
-                  "Jane Austen",
-                  "978-0-19-953556-9", // ISBN
-                  "T. Egerton, Whitehall", // Publisher
-                  "Romance, Fiction" // Genre
+                  "Emmas geheime Detektivbande",
+                  "Emma und ihre Freunde lösen Rätsel und finden verlorene Gegenstände – diesmal ist ein wertvolles Gemälde verschwunden!",
+                  "Emmas geheime Detektivbande",
+                  "Daniel Hoffmann",
+                  "978-3-4567-8901-4", // ISBN
+                  "Spannung & Spaß Verlag", // Publisher
+                  "Krimi, Abenteuer", // Genre
+                  false,
+                  State.AVAILABLE
           ));
 
           repository.save(new Book(
-                  "The Great Gatsby",
-                  "A 1925 novel by American writer F. Scott Fitzgerald. Set in the Jazz Age on Long Island, near New York City.",
-                  new BigDecimal("9.99"),
-                  "test",
-                  "F. Scott Fitzgerald",
-                  "978-0-7432-7356-5", // ISBN
-                  "Charles Scribner's Sons", // Publisher
-                  "Fiction, Classic" // Genre
+                  "Das magische Baumhaus am See",
+                  "Ein altes Baumhaus führt zwei Geschwister in eine geheimnisvolle Welt voller Abenteuer und Magie.",
+                  "Das magische Baumhaus am See",
+                  "Sabrina Keller",
+                  "978-3-5678-9012-5", // ISBN
+                  "Abenteuer Verlag", // Publisher
+                  "Fantasy, Abenteuer", // Genre
+                  false,
+                  State.AVAILABLE
           ));
+
+          repository.save(new Book(
+                  "Finn und die verlorene Musik",
+                  "Finn entdeckt eine magische Melodie, die ihm hilft, seine Angst zu überwinden und große Abenteuer zu erleben.",
+                  "Finn und die verlorene Musik",
+                  "Lena Braun",
+                  "978-3-6789-0123-6", // ISBN
+                  "Harmonie Verlag", // Publisher
+                  "Musik, Abenteuer", // Genre
+                  false,
+                  State.AVAILABLE
+          ));
+
+          repository.save(new Book(
+                  "Paul und der sprechende Käfer",
+                  "Ein winziger Käfer verrät Paul das Geheimnis, wie er mit Tieren sprechen kann.",
+                  "Paul und der sprechende Kaefer",
+                  "Sebastian Krüger",
+                  "978-3-7890-1234-7", // ISBN
+                  "Tierfreunde Verlag", // Publisher
+                  "Tiere, Freundschaft", // Genre
+                  false,
+                  State.AVAILABLE
+          ));
+
+          repository.save(new Book(
+                  "Luna und das Geheimnis der Sternenblume",
+                  "Luna findet eine magische Blume, die ihr besondere Kräfte verleiht und sie auf eine fantastische Reise schickt.",
+                  "Luna und das Geheimnis der Sternenblume",
+                  "Sophia Richter",
+                  "978-3-8901-2345-8", // ISBN
+                  "Sternenlicht Verlag", // Publisher
+                  "Fantasy, Magie", // Genre
+                  false,
+                  State.AVAILABLE
+          ));
+
+          repository.save(new Book(
+                  "Der freche Kobold Niko",
+                  "Ein kleiner Kobold sorgt in der Stadt für Chaos, bis ein Kind ihn zähmt und sie Freunde werden.",
+                  "Der freche Kobold Niko",
+                  "Martin Schmid",
+                  "978-3-9012-3456-9", // ISBN
+                  "Spaß & Spiel Verlag", // Publisher
+                  "Humor, Abenteuer", // Genre
+                  false,
+                  State.AVAILABLE
+          ));
+          Book s = new Book(
+                  "Die geheime Insel der sprechenden Tiere",
+                  "Ein Schiffbruch führt Tom und seine Schwester auf eine Insel, auf der Tiere sprechen können und ihnen helfen, nach Hause zu finden.",
+                  "Die geheime Insel der sprechenden Tiere",
+                  "Katrin Lehmann",
+                  "978-3-0123-4567-0", // ISBN
+                  "Abenteuer Verlag", // Publisher
+                  "Tiere, Abenteuer", // Genre
+                  true,
+                  State.REQUESTED
+          );
+          repository.save(s);
 
           User testUser = new User();
           testUser.setUsername("Test");
           testUser.setPassword("1111");
           testUser.setFirstName("Test");
-          testUser.setLastName("User");
+          testUser.setLastName("TeUser");
           testUser.setStreet("Test Street");
           testUser.setHouseNumber("123");
           testUser.setPostalCode("12345");
@@ -145,6 +201,8 @@ public class JsfSpringApplication extends SpringBootServletInitializer {
           testAdmin.setRole(UserRole.ADMIN);
           testAdmin.setProfileImage("Hase.png");
           userRepository.save(testAdmin);
+
+          rentRepository.save(new BookRent(testUser, s, new Timestamp(System.currentTimeMillis())));
 
           // fetch all products
         log.info("Books found with findAll():");

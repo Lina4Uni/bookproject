@@ -8,7 +8,7 @@
 <ui:composition>
     <header style="display: flex; justify-content: space-between; align-items: center;">
         <!-- Menü-Button -->
-        <p:commandButton icon="pi pi-bars" styleClass="menu-button test1"
+        <p:commandButton icon="pi pi-bars" styleClass="menu-button slick-btn"
                          onclick="PF('menu').toggle()" type="button" />
 
         <!-- Menü -->
@@ -16,8 +16,9 @@
             <h:form>
                 <p:menu>
                     <p:menuitem value="Startseite" url="/index.xhtml" />
-                    <p:menuitem value="Suche" url="/search.xhtml" rendered="#{userManager.signedIn}"  />
-                    <p:menuitem value="Buchverleih" url="/booksystem.xhtml" rendered="#{userManager.signedIn}"  />
+                    <p:menuitem value="Suche" url="/search.xhtml"  />
+                    <p:menuitem value="Buchverleih" url="/booksystem.xhtml" rendered="#{userManager.currentUser.role == 'ADMIN'}"  />
+                    <p:menuitem value="Verleihübersicht" url="/rentsystem.xhtml" rendered="#{userManager.currentUser.role == 'KUNDEN'}"  />
                     <p:menuitem value="Buchverwaltung" url="/bookmanagement.xhtml" rendered="#{userManager.currentUser.role == 'ADMIN'}" />
                     <p:menuitem value="Einstellungen" url="/settings.xhtml" rendered="#{userManager.signedIn}"   />
                 </p:menu>
@@ -26,22 +27,24 @@
 
         <h1>#{pageTitle}</h1>
 
-        <h:panelGroup rendered="#{userManager.currentUser != null}">
-            <p>Angemeldet als: #{userManager.currentUser.firstName} #{userManager.currentUser.lastName}</p>
-        </h:panelGroup>
+        <div class="user-name-image">
+            <h:panelGroup rendered="#{userManager.currentUser != null}">
+                <p class="user-name"><span class="soft">Angemeldet als</span><br></br> #{userManager.currentUser.firstName} #{userManager.currentUser.lastName}</p>
+            </h:panelGroup>
 
-        <p:graphicImage id="profileMenuTrigger"
-                        name="#{userManager.profileImagePath}"
-                        styleClass="profile-image"
-                        onclick="PF('profileMenu').toggle()" />
+            <p:graphicImage id="profileMenuTrigger"
+                            name="#{userManager.profileImagePath}"
+                            styleClass="profile-image"
+                            onclick="PF('profileMenu').toggle()" />
+        </div>
 
         <!-- Profil-Menü -->
         <p:overlayPanel id="profileMenu" widgetVar="profileMenu" for="profileMenuTrigger" dismissable="true">
             <h:form>
                 <p:menu>
-                    <p:menuitem value="Anmelden" url="sign-in.xhtml"/>
-                    <p:menuitem value="Registrieren" url="user-details.xhtml" />
-                    <p:menuitem value="Abmelden" action="#{userManager.signOut}" />
+                    <p:menuitem value="Anmelden" url="sign-in.xhtml" rendered="#{not userManager.signedIn}" />
+                    <p:menuitem value="Registrieren" url="user-details.xhtml"  rendered="#{not userManager.signedIn}" />
+                    <p:menuitem value="Abmelden" action="#{userManager.signOut}"  rendered="#{userManager.signedIn}" />
                 </p:menu>
             </h:form>
         </p:overlayPanel>

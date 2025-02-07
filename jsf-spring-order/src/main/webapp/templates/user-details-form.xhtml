@@ -1,0 +1,150 @@
+<!-- File: templates/user-details-form.xhtml -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <section>
+        <h:messages styleClass="validation-messages"/>
+        <h:form>
+            <h:panelGrid columns="2" styleClass="form-grid" columnClasses="form-column-label,form-column-input">
+
+                <h:outputText value="Benutzerinformationen:" styleClass="form-header"/>
+                <h:outputText value=""></h:outputText>
+
+                <h:outputLabel styleClass="required" for="username">Benutzername</h:outputLabel>
+                <h:inputText id="username"
+                             value="#{userDetails.user.username}"
+                             size="20"
+                             required="true"
+                             requiredMessage="Bitte geben Sie einen Benutzernamen ein."
+                             readonly="#{userManager.signedIn}"
+                             validatorMessage="Bitte geben Sie einen Benutzernamen ein, der nur aus Buchstaben und Zahlen besteht, zwischen 2 und 20 Zeichen lang ist.">
+                    <f:validateRegex pattern="[A-Za-z0-9]{2,20}"/>
+                </h:inputText>
+
+                <h:outputLabel styleClass="required" for="password">Passwort</h:outputLabel>
+                <h:inputSecret id="password"
+                               value="#{userDetails.user.password}"
+                               size="20"
+                               required="true"
+                               requiredMessage="Bitte geben Sie ein Passwort ein"
+                               styleClass="#{userDetails.user.passwordCssClass}">
+                </h:inputSecret>
+
+                <h:outputLabel for="profileImage" value="Profilbild" />
+                <h:selectOneMenu id="profileImage" value="#{userDetails.user.profileImage}">
+                    <f:selectItems value="#{userDetails.profileImages}" />
+                </h:selectOneMenu>
+
+                <h:outputText value="Persönliche Daten:" styleClass="form-header"/>
+                <h:outputText value=""></h:outputText>
+
+                <h:outputLabel styleClass="required" for="firstName">Vorname</h:outputLabel>
+                <h:inputText id="firstName"
+                             value="#{userDetails.user.firstName}"
+                             size="30"
+                             required="true"
+                             requiredMessage="Bitte geben Sie Ihren Vornamen ein."
+                             validatorMessage="Bitte geben Sie einen Vornamen mit 1 bis 30 Zeichen ein.">
+                    <f:validateLength minimum="1" maximum="30"/>
+                </h:inputText>
+
+                <h:outputLabel styleClass="required" for="lastName">Nachname</h:outputLabel>
+                <h:inputText id="lastName"
+                             value="#{userDetails.user.lastName}"
+                             size="30"
+                             required="true"
+                             requiredMessage="Bitte geben Sie Ihren Nachnamen ein."
+                             validatorMessage="Bitte geben Sie einen Nachnamen mit 1 bis 30 Zeichen ein.">
+                    <f:validateLength minimum="1" maximum="30"/>
+                </h:inputText>
+
+                <h:outputText value="Anschrift:" styleClass="form-header"/>
+                <h:outputText value=""></h:outputText>
+
+                <h:outputLabel styleClass="required" for="street">Straße</h:outputLabel>
+                <h:inputText id="street"
+                             value="#{userDetails.user.street}"
+                             size="50"
+                             required="true"
+                             requiredMessage="Bitte geben Sie Ihren Straßennamen ein.">
+                </h:inputText>
+
+                <h:outputLabel styleClass="required" for="houseNumber">Hausnummer</h:outputLabel>
+                <h:inputText id="houseNumber"
+                             value="#{userDetails.user.houseNumber}"
+                             size="10"
+                             required="true"
+                             requiredMessage="Bitte geben Sie Ihre Hausnummer ein."
+                             validatorMessage="Die Hausnummer muss mindestens eine Zahl enthalten.">
+                    <f:validateRegex pattern="^\d+[a-zA-Z]*$"/>
+                </h:inputText>
+
+                <h:outputLabel styleClass="required" for="postalCode">Postleitzahl</h:outputLabel>
+                <h:inputText id="postalCode"
+                             value="#{userDetails.user.postalCode}"
+                             size="10"
+                             required="true"
+                             requiredMessage="Bitte geben Sie Ihre Postleitzahl ein."
+                             validatorMessage="Die Postleitzahl muss eine 5-stellige Zahl sein.">
+                    <f:validateRegex pattern="^\d{5}$"/>
+                </h:inputText>
+
+                <h:outputLabel styleClass="required" for="city">Stadt</h:outputLabel>
+                <h:inputText id="city"
+                             value="#{userDetails.user.city}"
+                             size="30"
+                             required="true"
+                             requiredMessage="Bitte geben Sie Ihre Stadt ein.">
+                </h:inputText>
+
+                <h:outputLabel styleClass="required" for="country">Land</h:outputLabel>
+                <h:inputText id="country"
+                             value="#{userDetails.user.country}"
+                             size="30"
+                             required="true"
+                             requiredMessage="Bitte geben Sie Ihr Land ein.">
+                </h:inputText>
+
+                <h:outputText value="Kontakt:" styleClass="form-header"/>
+                <h:outputText value=""></h:outputText>
+
+
+                <h:outputLabel styleClass="required" for="emailAddress">E-Mail-Adresse</h:outputLabel>
+                <h:inputText id="emailAddress"
+                             value="#{userDetails.user.emailAddress}"
+                             size="20"
+                             required="true"
+                             requiredMessage="Bitte geben Sie Ihre E-Mail-Adresse ein."
+                             validator="#{userDetails.validateEmail}"/>
+
+                <h:outputLabel for="phoneNumber">Telefonnummer</h:outputLabel>
+                <h:inputText id="phoneNumber"
+                             value="#{userDetails.user.phoneNumber}"
+                             size="20"
+                             validator="#{userDetails.validatePhoneNumber}"/>
+
+                <h:outputLabel styleClass="required" for="birthDate">Geburtsdatum</h:outputLabel>
+                <p:calendar id="birthDate"
+                            value="#{userDetails.user.birthDate}"
+                            required="true"
+                            requiredMessage="Bitte wählen Sie Ihr Geburtsdatum aus."
+                            pattern="yyyy-MM-dd"
+                            validator="#{userDetails.validateBirthDate}" />
+
+                <h:outputLabel styleClass="required" for="subscribedToNewsletter">Möchten Sie den Newsletter abonnieren?</h:outputLabel>
+                <h:selectOneRadio id="subscribedToNewsletter"
+                                  value="#{userDetails.user.subscribedToNewsletter}"
+                                  required="true"
+                                  requiredMessage="Bitte wählen Sie, ob Sie den Newsletter abonnieren möchten.">
+                    <f:selectItem itemValue="#{true}" itemLabel="Ja"/>
+                    <f:selectItem itemValue="#{false}" itemLabel="Nein"/>
+                </h:selectOneRadio>
+
+                <h:outputText value=""/>
+                <h:commandButton value="Absenden" action="#{userDetails.submit}"/>
+            </h:panelGrid>
+        </h:form>
+    </section>
+</ui:composition>

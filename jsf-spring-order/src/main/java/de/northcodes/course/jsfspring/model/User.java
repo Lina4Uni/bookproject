@@ -61,9 +61,6 @@ public class User extends AbstractEntity implements Serializable {
 	@Column(name = "role", nullable = false)
 	private UserRole role = UserRole.KUNDEN;
 
-	@OneToMany(mappedBy = "orderer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Order> orders = new ArrayList<Order>();
-
 	private boolean lengthValid;
 	private boolean uppercaseValid;
 	private boolean lowercaseValid;
@@ -219,14 +216,6 @@ public class User extends AbstractEntity implements Serializable {
 
 	public void setSubscribedToNewsletter(Boolean subscribedToNewsletter) {
 		this.subscribedToNewsletter = subscribedToNewsletter;
-	}
-
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
 	}
 
 	public static long getSerialversionuid() {

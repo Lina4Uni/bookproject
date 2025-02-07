@@ -4,10 +4,10 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition template="/templates/page-template.xhtml">
-    <ui:param name="pageTitle" value="Beliebte Bücher"/>
+    <ui:param name="pageTitle" value="Startseite"/>
     <ui:define name="panel-main">
         <section>
-            <h1>Beliebte Bücher</h1>
+            <h1>Von der Redaktion empfohlene Bücher</h1>
             <ui:debug hotkey="e"/>
             <h:form>
                 <ui:repeat value="#{popularBooks.books}" var="book">

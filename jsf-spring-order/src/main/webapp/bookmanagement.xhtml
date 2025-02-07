@@ -22,15 +22,8 @@
                     <h:outputLabel for="description" value="Beschreibung:" />
                     <h:inputTextarea id="description" value="#{bookManagement.description}"/>
 
-                    <h:outputLabel for="price" styleClass="required" value="Preis (Euro):" />
-                    <h:inputText id="price" value="#{bookManagement.price}" required="true"
-                                 requiredMessage="Bitte geben Sie einen Preis ein."
-                                 validatorMessage="Bitte geben Sie einen Preis ein, der nur Zahlen besteht.">
-                        <f:validateDoubleRange minimum="0.0" />
-                    </h:inputText>
-
-                    <h:outputLabel for="imageName" value="Bildname:" />
-                    <h:inputText id="imageName" value="#{bookManagement.imageName}"/>
+                    <h:outputLabel for="imageUpload" value="Bild hochladen:"/>
+                    <p:fileUpload id="imageUpload" value="#{bookManagement.uploadedFile}" mode="simple" />
 
                     <h:outputLabel for="author" styleClass="required" value="Autor:" />
                     <h:inputText id="author" value="#{bookManagement.author}" required="true"
@@ -44,9 +37,17 @@
 
                     <h:outputLabel for="genre" value="Genre:" />
                     <h:inputText id="genre" value="#{bookManagement.genre}" />
+
+                    <h:outputLabel for="recommended" value="Empfohlen von der Redaktion:" />
+                    <h:selectBooleanCheckbox id="recommended" value="#{bookManagement.recommended}" />
+
+                    <h:outputLabel for="state" value="Status:" />
+                    <h:selectOneMenu id="state" value="#{bookManagement.state}">
+                        <f:selectItems value="#{bookManagement.statusOptions}" var="status" itemValue="#{status}" itemLabel="#{status.description}" />
+                    </h:selectOneMenu>
                 </h:panelGrid>
-                <h:commandButton value="Buch hinzufügen" action="#{bookManagement.addBook}" />
-                <h:messages globalOnly="true" />
+
+                <h:commandButton value="Buch hinzufügen" action="#{bookManagement.addBook}" type="submit" />
             </h:form>
         </section>
     </ui:define>

@@ -16,14 +16,26 @@
                     <p:ajax event="keyup" update="bookList" listener="#{searchBooks.search}"/>
                 </p:inputText>
                 <p:commandButton value="Suche" action="#{searchBooks.search}" update="bookList"/>
-                <p:dataTable id="bookList" value="#{searchBooks.books}" var="book">
+
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <p:dataTable id="bookList" styleClass="bookList-search" value="#{searchBooks.books}" var="book">
                     <p:column>
                         <f:facet name="header">Buchname</f:facet>
                         #{book.name}
                     </p:column>
                     <p:column>
-                        <f:facet name="header">Beschreibung</f:facet>
-                        #{book.description}
+                        <f:facet name="header">Status des Buches</f:facet>
+                        #{book.status.getDescription()}
+                    </p:column>
+                    <p:column style="width: 150px;">
+                        <f:facet name="header"></f:facet>
+                        <h:outputLink value="book-details.xhtml">
+                            <f:param name="bookId" value="#{book.id}"/>
+                            Details und ausleihen
+                        </h:outputLink>
                     </p:column>
                 </p:dataTable>
             </h:form>

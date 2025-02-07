@@ -7,7 +7,7 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-color: #e5e5e5;
+    background-color: #F5F5F5;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -20,9 +20,6 @@ p {
     padding: 0;
 }
 
-a:link, a:visited {
-    color: #1f778d;
-}
 
 a:hover, a:active {
     color: #76cbe0;
@@ -31,7 +28,7 @@ a:hover, a:active {
 body > header {
     padding: 1em;
     clear: both;
-    background-color: lightblue;
+    background-color: black;
     color: white;
     text-align: center;
 }
@@ -48,14 +45,22 @@ body > section {
     margin: 0.5em 20%;
     padding: 1em;
     overflow: hidden;
-    background-color: white;
+    background-color: #A5D6A7;
     color: black;
+}
+
+a {
+    color: darkgreen;
+}
+
+a:hover {
+    color: mintcream;
 }
 
 body > footer {
     padding: 0.5em;
     clear: both;
-    background-color: #2a9fbc;
+    background-color: black;
     color: #e5e5e5;
     font-size: 0.8em;
     text-align: center;
@@ -88,6 +93,83 @@ body > footer > p {
     margin: 0;
     display: block;
 }
+
+.cover-overview {
+    width: 100px;
+    height: 100px;
+}
+
 .test1 {
     background: red;
+}
+
+/* Noch spezifischere Variante */
+body .ui-button {
+    background-color: black;
+    border: none;
+    color: white;
+    font-size: 20px;
+    transition: background-color 0.3s ease;
+}
+
+body .ui-button:hover {
+    background-color: white;
+    color: black;
+}
+
+
+body .ui-overlaypanel .ui-overlaypanel-content {
+  padding: 0rem !important;
+}
+.ui-overlaypanel-content {
+  padding: 0em !important;
+}
+
+#menu {
+    top: 70px !important;
+}
+
+body .ui-menu .ui-menu-list .ui-menuitem {
+    background-color: black !important;
+    color: white !important;
+    border-bottom: 1px solid black !important;
+    font-size: large;
+}
+
+body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text {
+  color: white !important;
+}
+
+.ui-menu {
+  padding: 0em !important;
+}
+
+.user-name-image {
+   display: inline-flex;
+}
+
+.user-name {
+    margin-right: 1em;
+}
+
+.soft {
+    color: gray;
+}
+
+th {
+    background-color: black !important;
+    color: white !important;
+}
+
+.bookList-search tr:hover {
+    background-color: black !important;
+    color: white !important;
+}
+
+.bookList-search tr:hover a {
+    color: white !important;
+}
+
+.cover-image {
+    width: 400px;
 }
